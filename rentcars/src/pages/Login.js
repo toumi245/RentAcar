@@ -3,12 +3,14 @@ import {Form,Input} from "antd"
 import { useDispatch } from 'react-redux'
 import { userLogin } from '../redux/actions/userActions'
 import { Link } from 'react-router-dom'
+import DefaultLayout from '../components/DefaultLayout'
 function Login() {
     const dispatch=useDispatch()
     function onFinish(values) {
       dispatch(userLogin(values))
     }
   return (
+    <DefaultLayout>
     <div className='login'>
         <div style={{display:"flex",justifyContent:"center",alignItems:"center",height:"100vh"}}>
         <Form layout='vertical' onFinish={onFinish}>
@@ -28,6 +30,7 @@ function Login() {
         </div>
   
     </div>
+    </DefaultLayout>
   )
 }
 

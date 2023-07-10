@@ -4,21 +4,21 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllCars } from '../redux/actions/carsActions'
 import Spinner from '../components/Spinner'
-import { Col, Row,Divider, Checkbox , DatePicker,Modal} from 'antd'
+import { Col, Row,Divider, Checkbox ,Modal,Space} from 'antd'
 import moment from 'moment'
 import { bookCar } from '../redux/actions/bookingActions'
 import StripeCheckout from 'react-stripe-checkout';
-
+import { DatePicker} from 'antd'
 const { RangePicker } = DatePicker;
 
 function BookingCar() {
-const {carid}=useParams()
+  const dispatch=useDispatch()
+  const {carid}=useParams()
 const {cars}=useSelector(state=>state.carsReducer)
 const {loading}=useSelector(state=>state.alertsReducer)
 const [car,setCar]=useState({})
-const dispatch=useDispatch()
-const [from,setFrom]=useState({})
-const [to,setTo]=useState({})
+const [from,setFrom]=useState()
+const [to,setTo]=useState()
 const [totalHours,setTotalHours]=useState(0)
 const [driver,setDriver]=useState(false)
 const [totalAmount,setTotalAmount]=useState(0)
@@ -32,15 +32,12 @@ else {
       setCar(cars.find(o=>o._id==carid))
 }
 },[cars])
-function SelectTimeSlots(value) {
-  if (value && value.length === 2) {
-    const fromTime = moment(value[0]).format('YYYY-MM-DD HH:mm');
-    const toTime = moment(value[1]).format('YYYY-MM-DD HH:mm');
-    setFrom(fromTime);
-    setTo(toTime);
-    setTotalHours(moment(value[1]).diff(value[0], 'hours'));
-  }
-}
+function SelectTimeSlots(values) {
+  setFrom(moment(values[0]).format('YYYY-MM-DD HH:mm'))
+ setTo(moment(values[1]).format('YYYY-MM-DD HH:mm'))
+
+ setTotalHours(values[1].diff(values[0],'hours'))
+     }
 
 
 
@@ -52,9 +49,7 @@ useEffect(()=>{
   }
 },[driver,totalHours])
 
-function bookNow(){
-  
-}
+
 function onToken(token){
   const reqObj={
     token,
@@ -62,7 +57,7 @@ function onToken(token){
     car:car._id,
     totalHours,
     totalAmount,
-    driverRequire:driver,
+    driverRequired:driver,
     bookedTimeSlots:{
       from,
       to  }
@@ -76,29 +71,29 @@ function onToken(token){
       <Col lg={10} sm={24} xs={24}>
         <img src={car.image} alt='dacia' className='carimg2 bs1'/>
       </Col>
-      <Col lg={10} sm={24} xs={24}>
-        <Divider type='horizontal' dashed>Car Info</Divider>
+      <Col lg={10} sm={24} xs={24} style={{marginLeft:"120px"}}>
+        <Divider type='horizontal' dashed><p style={{color:'#0C55F4'}}>Car Info</p></Divider>
       <div style={{textAlign:"right"}}>
-        <p>{car.name}</p>
-        <p>{car.rentPerHour}</p>
-        <p>fuel:{car.fuelType}</p>
-        <p>Max Persons:{car.capacity}</p>
+        <p><b>{car.name}</b></p>
+        <p><b>Rent Per Hour :</b> {car.rentPerHour} TND</p>
+        <p><b>Fuel:</b> {car.fuelType}</p>
+        <p><b>Max Persons:</b> {car.capacity}</p>
       </div>
       
-        <Divider type='horizontal' dashed>Select Time Slots</Divider>
+        
+        <Divider type='horizontal' dashed><p style={{color:'#0C55F4'}}>Select Time Slots</p></Divider>
+        <Space direction="vertical" size={12}>
         <RangePicker
-  showTime={{
-    format: 'HH:mm',
-    defaultValue: [moment(), moment().add(1, 'hour')]
-  }}
+  showTime={{format: 'HH:mm'}}
   format='YYYY-MM-DD HH:mm'
-  onChange={(value) => SelectTimeSlots(value)}
+  onChange={SelectTimeSlots}
 />
+</Space>
           <br/>
           <button className='btn1 mt-2' onClick={()=>{setShowModal(true)}}>see booked time slots</button>
           <div>
-          <p>Total Hours: {totalHours}</p>
-          <p>Rent Per Hour : {car.rentPerHour}</p>
+          <p><b>Total Hours:</b> {totalHours}</p>
+          <p><b>Rent Per Hour :</b> {car.rentPerHour}</p>
           <Checkbox onChange={(e)=>{
             if(e.target.checked){
               setDriver(true)
@@ -106,14 +101,15 @@ function onToken(token){
               setDriver(false)
             }
           }}>driver Required</Checkbox>
-          <h3>TotalAmount : {totalAmount}</h3>
+          <h3>TotalAmount: {totalAmount}</h3>
           <StripeCheckout
           shippingAddress
         token={onToken}
         currency='inr'
         amount={totalAmount * 100}
         stripeKey="pk_test_51NQZodLucVp5DJybkS5kUh6A6NfsL49wFbrf15qc89q6hAfZUClEWTmXygkgPW9iSyjfnuWnP9ouBz7u6L6nKzkc00VPMMyc6H"
-      ><button className='btn1' >Book Now</button></StripeCheckout>
+      ><button className='btn1' >Book Now</button>
+      </StripeCheckout>
         
         </div>
       </Col>

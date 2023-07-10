@@ -23,10 +23,10 @@ useEffect(()=>{
   setTotalcars(cars)
 },[cars])
 function setFilter(values){
-var selectedFrom=(values[0]).format("MMM DD yyyy HH:mm")
-var selectedTo=moment(values[1]).format("MMM DD yyyy HH:mm")
+var selectedFrom=moment(values[0]).format("YYYY-MM-DD HH:mm")
+var selectedTo=moment(values[1]).format("YYYY-MM-DD HH:mm")
 var temp=[]
-for(var car of cars){
+for(var car of totalCars){
   if (car.bookedTimeSlots.length==0){
     temp.push(car)
   }
@@ -52,7 +52,7 @@ setTotalcars(temp)
     <DefaultLayout>
       <Row className='mt-3' justify="center">
         <Col lg={20} sm={24} className='d-flex justify-content-left'>
-          <RangePicker showTime={{format:'HH:mm'}} format='MMM DD YYYY HH:mm' onChange={setFilter} />
+          <RangePicker onChange={setFilter}  />
         </Col>
       </Row>
       {loading == true && (<Spinner/>)}

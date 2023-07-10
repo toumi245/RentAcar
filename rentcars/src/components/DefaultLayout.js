@@ -11,7 +11,7 @@ function DefaultLayout(props) {
     {
       key: '1',
       label: (
-        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+        <a target="_blank" rel="bookings" href="/userbookings" style={{textDecoration:"none"}}>
           Bookings
         </a>
       ),
@@ -19,14 +19,14 @@ function DefaultLayout(props) {
     {
       key: '2',
       label: (
-        <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+        <a target="_blank" rel="profile" href="https://www.aliyun.com" style={{textDecoration:"none"}}>
           Profile
         </a>
       ),
     },
     {
       key: '3',
-      label: <a onClick={handleLogout}>LogOut</a>,
+      label: <a onClick={handleLogout} style={{textDecoration:"none"}}>LogOut</a>,
     },
   ];
 
@@ -39,7 +39,7 @@ function DefaultLayout(props) {
           </Col>
         </Row>
         <div className="d-flex justify-content-between">
-          <h1>EasyCars</h1>
+         <h1 ><a href='/' style={{textDecoration:"none",color:"#0BD471",marginLeft:"40px"}}>EasyCars</a></h1>
           <div style={{ padding: '10px' }}>
             <a href="/login" style={{ textDecoration: 'none' }}>
               Login
