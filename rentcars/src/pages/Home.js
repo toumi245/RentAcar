@@ -62,7 +62,7 @@ setTotalcars(temp)
     <div  className="car p-2 bs1 ">
     <img src={car.image} className="carimg"/>
     <div className="car-content d-flex align-items-center justify-content-between">
-    <div>
+    <div className='text-left pl-2'>
       <p style={{fontWeight:"bold"}}> {car.name}</p>
       <p> {car.rentPerHour}-</p>
     </div>

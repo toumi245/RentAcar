@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import BookingCar from './pages/BookingCar';
 import UserBookings from './pages/UserBookings';
+import AddCar from './pages/AddCar';
+import AdminHome from './pages/AdminHome';
 function App() {
 
 
@@ -20,6 +22,8 @@ function App() {
     <Route path='/register' element={<Register/>} />
     <Route path='/booking/:carid' element={<BookingCar/>} />
     <Route path='/userbookings/' element={<UserBookings/>} />
+    <Route path='/addcar' element={<AddCar/>} />
+    <Route path='/admin' element={<AdminHome/>} />
 
   </Routes>
 </Router>
