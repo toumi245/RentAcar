@@ -64,10 +64,10 @@ setTotalcars(temp)
     <div className="car-content d-flex align-items-center justify-content-between">
     <div className='text-left pl-2'>
       <p style={{fontWeight:"bold"}}> {car.name}</p>
-      <p> {car.rentPerHour}-</p>
+      <p><b>rent Per Hour</b> {car.rentPerHour}-</p>
     </div>
     <div>
-      <button className="btn1 mr-2" ><Link to={`/booking/${car._id}`}>Book Now</Link></button>
+      <button className="btn1 mr-2" ><Link to={`/booking/${car._id}`} style={{textDecoration:"none"}}>Book Now</Link></button>
     </div>
     </div>
     </div>

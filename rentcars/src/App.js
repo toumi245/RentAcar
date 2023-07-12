@@ -7,6 +7,7 @@ import BookingCar from './pages/BookingCar';
 import UserBookings from './pages/UserBookings';
 import AddCar from './pages/AddCar';
 import AdminHome from './pages/AdminHome';
+import EditCar from './pages/EditCar';
 function App() {
 
 
@@ -24,6 +25,7 @@ function App() {
     <Route path='/userbookings/' element={<UserBookings/>} />
     <Route path='/addcar' element={<AddCar/>} />
     <Route path='/admin' element={<AdminHome/>} />
+    <Route path='/editcar/:carid' element={<EditCar/>} />
 
   </Routes>
 </Router>

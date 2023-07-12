@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import DefaultLayout from '../components/DefaultLayout'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllCars } from '../redux/actions/carsActions'
-import { Col, Row, DatePicker} from 'antd'
+import { deleteCar, getAllCars } from '../redux/actions/carsActions'
+import { Col, Row, DatePicker,Edit} from 'antd'
 import Spinner from '../components/Spinner';
-import { Link } from 'react-router-dom';
 import moment from 'moment'
 import {DeleteOutlined,EditOutlined} from '@ant-design/icons';
+import { Link } from 'react-router-dom'
+import { Button, message, Popconfirm } from 'antd';
 
 const { RangePicker } = DatePicker;
 
@@ -27,7 +28,11 @@ useEffect(()=>{
 
   return (
     <DefaultLayout>
-    
+    <Row  gutter={16} className='mt-2'>
+      <Col lg={20} sm={24}>
+        <button className='btn1'><a href='/addcar' style={{textDecoration:"none"}}>AddCar</a></button>
+      </Col>
+    </Row>
       {loading == true && (<Spinner/>)}
     <Row justify='center' gutter={16} >
     {totalCars.map(car=>{
@@ -40,8 +45,19 @@ useEffect(()=>{
       <p> {car.rentPerHour}-</p>
     </div>
     <div className='mr-4'>
-    <EditOutlined className='mr-3'style={{color:'green',cursor:'pointer'}}/>
+    <Link to={`/editcar/${car._id}`}>
+      <EditOutlined  className='mr-3'style={{color:'green',cursor:'pointer'}}/>
+      </Link>
+      <Popconfirm
+    title="Delete the task"
+    description="Are you sure to delete this car?"
+    onConfirm={()=>{dispatch(deleteCar({carid:car._id}))}}
+    okText="Yes"
+    cancelText="No"
+  >
     <DeleteOutlined style={{color:'red',cursor:'pointer'}}/>
+
+  </Popconfirm>
     </div>
     </div>
     </div>

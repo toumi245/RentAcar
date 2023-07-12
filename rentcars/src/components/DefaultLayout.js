@@ -11,7 +11,7 @@ function DefaultLayout(props) {
     {
       key: '1',
       label: (
-        <a target="_blank" rel="bookings" href="/userbookings" style={{textDecoration:"none"}}>
+        <a target="_blank" rel="bookings" href="/userbookings" style={{ textDecoration: 'none' }}>
           Bookings
         </a>
       ),
@@ -19,44 +19,51 @@ function DefaultLayout(props) {
     {
       key: '2',
       label: (
-        <a target="_blank" rel="profile" href="https://www.aliyun.com" style={{textDecoration:"none"}}>
-          Profile
+        <a target="_blank" rel="admin" href="/admin" style={{ textDecoration: 'none' }}>
+          admin
         </a>
       ),
     },
     {
       key: '3',
-      label: <a onClick={handleLogout} style={{textDecoration:"none"}}>LogOut</a>,
+      label: <a onClick={handleLogout} style={{ textDecoration: 'none' }}>LogOut</a>,
     },
   ];
 
   return (
     <div>
       <div className="header bs1">
-        <Row gutter={16} justify >
-          <Col lg={20} sm={24} xs={24}>
-
-          </Col>
+        <Row gutter={16} justify>
+          <Col lg={20} sm={24} xs={24}></Col>
         </Row>
         <div className="d-flex justify-content-between">
-         <h1 ><a href='/' style={{textDecoration:"none",color:"#0BD471",marginLeft:"40px"}}>EasyCars</a></h1>
-          <div style={{ padding: '10px' }}>
-            <a href="/login" style={{ textDecoration: 'none' }}>
-              Login
-            </a>{' '}
-            /{' '}
-            <a href="/register" style={{ textDecoration: 'none' }}>
-              Sign Up
+          <h1>
+            <a href="/" style={{ textDecoration: 'none', color: '#0BD471', marginLeft: '40px' }}>
+              EasyCars
             </a>
-            <Space direction="vertical">
-              <Space wrap>
-                <Dropdown menu={{ items }} placement="bottom">
-                  <div>
-                    {user && <Button>{user.username}</Button>}
-                  </div>
-                </Dropdown>
+          </h1>
+          <div style={{ padding: '10px' }}>
+            {user ? (
+              <Space direction="vertical" style={{marginRight:"100px"}}>
+                <Space wrap>
+                  <Dropdown menu={{ items }} placement="bottom" >
+                    <div>
+                      {user && <Button>{user.username}</Button>}
+                    </div>
+                  </Dropdown>
+                </Space>
               </Space>
-            </Space>
+            ) : (
+              <Space>
+                <a href="/login" style={{ textDecoration: 'none' }}>
+                  Login
+                </a>{' '}
+                /{' '}
+                <a href="/register" style={{ textDecoration: 'none' }}>
+                  Sign Up
+                </a>
+              </Space>
+            )}
           </div>
         </div>
       </div>

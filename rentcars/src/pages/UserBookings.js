@@ -23,7 +23,7 @@ function UserBookings() {
         <Row justify='center'>
           <Col lg={20} sm={24}>
             {bookings.map((booking) => {
-              const { car, totalHours, totalAmount, transactionId, bookedTimeSlots } = booking;
+              const { car, totalHours, totalAmount, transactionId, bookedTimeSlots,image } = booking;
 
               return (
                 <Row className='bs1 m-2 text-left' key={booking._id}>
@@ -41,7 +41,7 @@ function UserBookings() {
 
                   </Col>
                   <Col lg={7} sm={24}>
-                    <img style={{borderRadius:3}} src={booking.car.image} height="140" className='p-2'/>
+                    <img style={{borderRadius:3}} src={booking.car?.image} height="140" className='p-2'/>
                   </Col>
                 </Row>
               );
